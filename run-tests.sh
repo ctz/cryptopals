@@ -2,7 +2,7 @@
 
 i=0
 
-function ensure()
+ensure()
 {
   if [ "$1" != "$2" ] ; then
     echo "test failed:"
