@@ -34,6 +34,8 @@
 #define RIJNDAEL_192KEY_ROUNDS 12
 #define RIJNDAEL_256KEY_ROUNDS 14
 
+#define RIJNDAEL_CTX (4 * (MAXNR + 1))
+
 typedef unsigned char	u8;	
 typedef unsigned short	u16;	
 typedef unsigned int	u32;
