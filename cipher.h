@@ -1,3 +1,5 @@
+#ifndef CIPHER_H
+#define CIPHER_H
 
 #include "rijndael.h"
 
@@ -38,7 +40,6 @@ byteblock rijndael_cbc_encrypt(pool *p, const byteblock *plain, const byteblock 
   return cipher;
 }
 
-
 byteblock rijndael_cbc_decrypt(pool *p, const byteblock *cipher, const byteblock *key, const byteblock *iv)
 {
   assert(key->len == 16);
@@ -65,3 +66,41 @@ byteblock rijndael_cbc_decrypt(pool *p, const byteblock *cipher, const byteblock
   
   return plain;
 }
+
+byteblock rijndael_ecb_encrypt(pool *p, const byteblock *plain, const byteblock *key)
+{
+  assert(key->len == 16);
+  assert(plain->len % 16 == 0);
+  
+  byteblock cipher = { p->alloc(p, plain->len), plain->len };
+    
+  uint32_t roundkeys[RIJNDAEL_CTX];
+  rijndaelKeySetupEnc(roundkeys, key->buf, key->len * 8);
+  
+  for (size_t i = 0; i < plain->len; i += 16)
+  {
+    rijndaelEncrypt(roundkeys, RIJNDAEL_128KEY_ROUNDS, &plain->buf[i], &cipher.buf[i]);
+  }
+  
+  return cipher;
+}
+
+byteblock rijndael_ecb_decrypt(pool *p, const byteblock *cipher, const byteblock *key)
+{
+  assert(key->len == 16);
+  assert(cipher->len % 16 == 0);
+  
+  byteblock plain = { p->alloc(p, cipher->len), cipher->len };
+  
+  uint32_t roundkeys[RIJNDAEL_CTX];
+  rijndaelKeySetupDec(roundkeys, key->buf, key->len * 8);
+  
+  for (size_t i = 0; i < cipher->len; i += 16)
+  {
+    rijndaelDecrypt(roundkeys, RIJNDAEL_128KEY_ROUNDS, &cipher->buf[i], &plain.buf[i]);
+  }
+  
+  return plain;
+}
+
+#endif

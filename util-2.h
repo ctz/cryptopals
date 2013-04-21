@@ -1,3 +1,5 @@
+#ifndef UTIL_2_H
+#define UTIL_2_H
 
 #include "util-1.h"
 
@@ -11,3 +13,5 @@ byteblock pkcs7_pad(pool *p, const byteblock *msg, size_t blocksize)
   memset(r.buf + msg->len, pad, pad);
   return r;
 }
+
+#endif

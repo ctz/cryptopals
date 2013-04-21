@@ -1,3 +1,6 @@
+#ifndef UTIL_1_H
+#define UTIL_1_H
+
 #include <stdint.h>
 #include <limits.h>
 #include <stdio.h>
@@ -104,6 +107,15 @@ int byteblock_hamming(const byteblock *x, const byteblock *y)
   for (size_t i = 0; i < x->len; i++)
     r += byte_hamming(x->buf[i], y->buf[i]);
   return r;
+}
+
+byteblock byteblock_concat(pool *p, const byteblock *x, const byteblock *y)
+{
+  size_t len = x->len + y->len;
+  byteblock out = { p->alloc(p, len), len };
+  memcpy(out.buf, x->buf, x->len);
+  memcpy(out.buf + x->len, y->buf, y->len);
+  return out;
 }
 
 const char *hex_table = "0123456789abcdef";
@@ -330,3 +342,4 @@ int score_english(const byteblock *bytes)
   return r;
 }
 
+#endif

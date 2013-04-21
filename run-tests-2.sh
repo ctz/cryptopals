@@ -86,7 +86,8 @@ ensure "`bin/mcp10 "$inp" "59454c4c4f57205355424d4152494e45" "000000000000000000
 # rand(2) to decide which to use.
 # 
 # Now detect the block cipher mode the function is using each time.
-# 
+ensure "`bin/mcp11`" "ok"
+
 # // ------------------------------------------------------------
 # 
 # 12. Byte-at-a-time ECB decryption, Full control version
@@ -139,7 +140,13 @@ ensure "`bin/mcp10 "$inp" "59454c4c4f57205355424d4152494e45" "000000000000000000
 # unknown-string.
 # 
 # f. Repeat for the next byte.
-# 
+inp="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK"
+ans="blocklen: 16, padlen: 6, secret: Rollin' in my 5.0.With my rag-top down so my hair can blow.The girlies on standby waving just to say hi.Did you stop? No, I just drove by."
+ensure "`bin/mcp12 $inp`" "$ans"
+
+# nb. i did this another way: by successively spilling an unknown byte into the last block
+#     same deal, though.
+
 # // ------------------------------------------------------------
 # 
 # 13. ECB cut-and-paste
