@@ -90,6 +90,22 @@ byteblock byteblock_xor(pool *p, const byteblock *x, const byteblock *y)
   return out;
 }
 
+int byte_hamming(uint8_t x, uint8_t y)
+{
+#define BIT(n) ( (x & (1 << n)) == (y & (1 << n)) ? 0 : 1 )
+  return BIT(7) + BIT(6) + BIT(5) + BIT(4) + BIT(3) + BIT(2) + BIT(1) + BIT(0);
+#undef BIT
+}
+
+int byteblock_hamming(const byteblock *x, const byteblock *y)
+{
+  assert(x->len == y->len);
+  int r = 0;
+  for (size_t i = 0; i < x->len; i++)
+    r += byte_hamming(x->buf[i], y->buf[i]);
+  return r;
+}
+
 const char *hex_table = "0123456789abcdef";
 const char *b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 const char b64_pad = '=';
@@ -148,7 +164,7 @@ const char *to_ascii(pool *p, const byteblock *bytes)
     if (isprint(bytes->buf[i]))
       h[i] = bytes->buf[i];
     else
-      h[i] = '?';
+      h[i] = '.';
   }
   
   return h;
@@ -207,8 +223,83 @@ const char *to_base64(pool *p, const byteblock *bytes)
   return b;
 }
 
+char next_b64(const char **p)
+{
+  while (1)
+  {
+    char c = **p;
+    if (c)
+      *p = *p + 1;
+    switch (c)
+    {
+      case '\n':
+      case '\r':
+      case '\t':
+      case ' ':
+        continue;
+      
+      case 0:
+        return 0;
+      
+      default:
+        return c;
+    }
+  }
+}
+
+uint8_t b64_decode_char(char x)
+{
+  if (x == b64_pad)
+    return 0;
+  
+  const char *offs = strchr(b64_table, x);
+  assert(offs != NULL);
+  return offs - b64_table;
+}
+
+void b64_decode_triple(char a, char b, char c, char d, uint8_t out[3])
+{
+  uint8_t xa = b64_decode_char(a);
+  uint8_t xb = b64_decode_char(b);
+  uint8_t xc = b64_decode_char(c);
+  uint8_t xd = b64_decode_char(d);
+  
+  out[0] = (xa << 2) | (xb >> 4);
+  out[1] = ((xb & 0xf) << 4) | (xc >> 2);
+  out[2] = ((xc & 0x3) << 6) | xd;
+}
+
+byteblock from_base64(pool *p, const char *b64)
+{
+  size_t b64len = strlen(b64);
+  size_t quads = (b64len + 3) / 4;  // probably over estimate
+  
+  byteblock out = { p->alloc(p, quads * 3), 0 };
+  for (size_t q = 0; q < quads; q++)
+  {
+    char a = next_b64(&b64);
+    char b = next_b64(&b64);
+    char c = next_b64(&b64);
+    char d = next_b64(&b64);
+    
+    if (a == 0 && b == 0 && c == 0 && d == 0)
+      break; // eof
+    
+    b64_decode_triple(a, b, c, d, &out.buf[q * 3]);
+    
+    out.len += 3;
+    
+    if (d == b64_pad)
+      out.len -= 1;
+    if (c == b64_pad)
+      out.len -= 1;
+  }
+  
+  return out;
+}
+
 // common ascii characters, in order of descending frequency(ish)
-const char *english_letter_scores = " etaonrishd.,lfcmugypwbvkjxqz-_!'\"";
+const char *english_letter_scores = " etaonrishd.,\nlfcmugypwbvkjxqz-_!'\"";
 
 int score_english_char(uint8_t c)
 {
