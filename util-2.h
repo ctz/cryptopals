@@ -14,11 +14,28 @@ byteblock pkcs7_pad(pool *p, const byteblock *msg, size_t blocksize)
   return r;
 }
 
+int pkcs7_padding_ok(const byteblock *padded)
+{
+  if (padded->len == 0)
+    return 0;
+  
+  uint8_t pad = padded->buf[padded->len - 1];
+  if (pad > padded->len)
+    return 0;
+  
+  for (size_t i = 0; i < pad; i++)
+  {
+    if (pad != padded->buf[padded->len - 1 - i])
+      return 0;
+  }
+  
+  return 1;
+}
+
 byteblock pkcs7_unpad(pool *p, const byteblock *padded)
 {
-  assert(padded->len);
+  assert(pkcs7_padding_ok(padded));
   size_t pad = padded->buf[padded->len - 1];
-  assert(pad <= padded->len);
   byteblock r = { p->alloc(p, padded->len - pad), padded->len - pad };
   memcpy(r.buf, padded->buf, r.len);
   return r;
