@@ -197,7 +197,8 @@ ensure "`bin/mcp12 $inp`" "$ans"
 # Using only the user input to profile_for() (as an oracle to generate
 # "valid" ciphertexts) and the ciphertexts themselves, make a role=admin
 # profile.
-# 
+ensure "`bin/mcp13`" "hacked: email=hack@hacks.com&uid=1&role=admin"
+
 # // ------------------------------------------------------------
 # 
 # 14. Byte-at-a-time ECB decryption, Partial control version
@@ -216,7 +217,13 @@ ensure "`bin/mcp12 $inp`" "$ans"
 # all the tools you already have; no crazy math is required.
 # 
 # Think about the words "STIMULUS" and "RESPONSE".
-# 
+inp="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK"
+ans="blocklen: 16, padlen: 6, junklen: 8, secret: Rollin' in my 5.0.With my rag-top down so my hair can blow.The girlies on standby waving just to say hi.Did you stop? No, I just drove by."
+ensure "`bin/mcp14 $inp`" "$ans"
+
+# answer: you need to work out the length of the junk, then pad up and ignore the blocks containing it.
+# this is assuming a constant-but-unknown prefix (like the key)
+
 # // ------------------------------------------------------------
 # 
 # 15. PKCS#7 padding validation
@@ -240,7 +247,10 @@ ensure "`bin/mcp12 $inp`" "$ans"
 # 
 # If you are writing in a language with exceptions, like Python or Ruby,
 # make your function throw an exception on bad padding.
-# 
+ensure "`bin/mcp15 49434520494345204241425904040404 16`" "494345204943452042414259"
+ensure "`bin/mcp15 49434520494345204241425905050505 16`" "error"
+ensure "`bin/mcp15 49434520494345204241425901020304 16`" "error"
+
 # // ------------------------------------------------------------
 # 
 # 16. CBC bit flipping

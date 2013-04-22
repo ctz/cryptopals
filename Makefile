@@ -1,6 +1,6 @@
 default: all
 
-TARGETS=bin/mcp1 bin/mcp2 bin/mcp3 bin/mcp4 bin/mcp6 bin/mcp7 bin/mcp8 bin/mcp9 bin/mcp10 bin/mcp11 bin/mcp12
+TARGETS=bin/mcp1 bin/mcp2 bin/mcp3 bin/mcp4 bin/mcp6 bin/mcp7 bin/mcp8 bin/mcp9 bin/mcp10 bin/mcp11 bin/mcp12 bin/mcp13 bin/mcp14
 CFLAGS=-std=c99 -Wall -Werror -Wextra -Wno-unused -pedantic -g
 
 all: $(TARGETS) test
@@ -17,6 +17,8 @@ bin/mcp9: mcp9.o
 bin/mcp10: mcp10.o rijndael.o
 bin/mcp11: mcp11.o rijndael.o
 bin/mcp12: mcp12.o rijndael.o
+bin/mcp13: mcp13.o rijndael.o
+bin/mcp14: mcp14.o rijndael.o
 
 bin/%:
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
