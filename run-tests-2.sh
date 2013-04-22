@@ -292,3 +292,6 @@ ensure "`bin/mcp15 49434520494345204241425901020304 16`" "error"
 # 
 # Before you implement this attack, answer this question: why does CBC
 # mode have this property?
+
+# answer: in decrypt mode, the plaintext of a given block is xored with previous block ciphertext
+ensure "`bin/mcp16`" "ok"
