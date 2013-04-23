@@ -1,26 +1,11 @@
 #include "util-2.h"
 #include "cipher.h"
 
-#include <time.h>
-
 enum mech
 {
   CBC,
   ECB
 };
-
-void random_fill(uint8_t *buf, size_t n)
-{
-  for (size_t i = 0; i < n; i++)
-    buf[i] = rand() & 0xff;
-}
-
-byteblock random_bb(pool *p, size_t n)
-{
-  byteblock b = { p->alloc(p, n), n };
-  random_fill(b.buf, b.len);
-  return b;
-}
 
 byteblock add_prefix_suffix(pool *p, const byteblock *data)
 {
@@ -37,8 +22,8 @@ byteblock add_prefix_suffix(pool *p, const byteblock *data)
 
 byteblock random_encrypt(pool *p, const byteblock *plaintext, enum mech *actual)
 {
-  byteblock key = random_bb(p, 16);
-  byteblock iv = random_bb(p, 16);
+  byteblock key = byteblock_random(p, 16);
+  byteblock iv = byteblock_random(p, 16);
   
   byteblock plain = add_prefix_suffix(p, plaintext);
   
@@ -63,7 +48,7 @@ int main(int argc, char **argv)
   pool p[1] = { pool_create() };
   assert(argc == 1);
   
-  srand((int) time(NULL));
+  random_init();
   
   // 4 blocks of zeroes
   uint8_t bytes[16 * 4] = { 0 };

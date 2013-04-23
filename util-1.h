@@ -8,6 +8,7 @@
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
+#include <time.h>
 
 typedef struct block
 {
@@ -115,6 +116,24 @@ byteblock byteblock_concat(pool *p, const byteblock *x, const byteblock *y)
   byteblock out = { p->alloc(p, len), len };
   memcpy(out.buf, x->buf, x->len);
   memcpy(out.buf + x->len, y->buf, y->len);
+  return out;
+}
+
+void random_init(void)
+{
+  srand((int) time(NULL));
+}
+
+void random_fill(uint8_t *out, size_t len)
+{
+  for (size_t i = 0; i < len; i++)
+    out[i] = rand() & 0xff;
+}
+
+byteblock byteblock_random(pool *p, size_t len)
+{
+  byteblock out = { p->alloc(p, len), len };
+  random_fill(out.buf, out.len);
   return out;
 }
 

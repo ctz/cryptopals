@@ -20,7 +20,7 @@ int pkcs7_padding_ok(const byteblock *padded)
     return 0;
   
   uint8_t pad = padded->buf[padded->len - 1];
-  if (pad > padded->len)
+  if (pad == 0 || pad > padded->len)
     return 0;
   
   for (size_t i = 0; i < pad; i++)
