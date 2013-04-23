@@ -247,8 +247,8 @@ ensure "`bin/mcp19 $inp`" "or polite meaningless words,"
 # Solve the resulting concatenation of ciphertexts as if for repeating-
 # key XOR, with a key size of the length of the ciphertext you XOR'd.
 # 
-inp=`cat gistfile5.txt`
-ensure "`bin/mcp20 $inp`" "fart"
+inp=`cat gistfile6.txt`
+ensure "`bin/mcp20 $inp`" "And count our money / Yo, well check this out, yo Eli"
 
 # // ------------------------------------------------------------
 # 

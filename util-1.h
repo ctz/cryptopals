@@ -330,7 +330,8 @@ byteblock from_base64(pool *p, const char *b64)
 }
 
 // common ascii characters, in order of descending frequency(ish)
-const char *english_letter_scores = " etaonrishd.,\nlfcmugypwbvkjxqz-_!'\"";
+const char *english_letter_scores = "etaonrishd .,\nlfcmugypwbvkjxqz-_!?'\"/1234567890*";
+const int weird_punishment = 255;
 
 int score_english_char(uint8_t c)
 {
@@ -340,14 +341,14 @@ int score_english_char(uint8_t c)
   {
     // slightly punish uppercase letters
     c = tolower(c);
-    uppercase_punishment = 5;
+    uppercase_punishment = 3;
   }
   
   const char *where = strchr(english_letter_scores, c);
   if (where == NULL)
-    return 255; // probably control or weird character: punish
+    return weird_punishment; // probably control or weird character: punish
   else
-    return uppercase_punishment + (where - english_letter_scores);
+    return uppercase_punishment + (where - english_letter_scores) * 2;
 }
 
 // low scores reflect byteblocks containing probably-english ASCII text

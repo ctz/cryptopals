@@ -80,7 +80,8 @@ int main(int argc, char **argv)
   byteblock plain = from_base64(p, argv[1]);
   random_init();
 
-  byteblock key = byteblock_random(p, 16);
+  uint8_t keybuf[16] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+  byteblock key = { keybuf, sizeof keybuf };
   byteblock iv;
   byteblock cipher = encrypt(p, &plain, &key, &iv);
 
