@@ -259,6 +259,8 @@ ensure "`bin/mcp20 $inp`" "And count our money / Yo, well check this out, yo Eli
 # giving you MT19937 as "rand()"; don't use rand(). Write the RNG
 # yourself.
 # 
+ensure "`bin/mcp21 10 5`" "3312796937 1283169405 89128932 2124247567 2721498432"
+
 # // ------------------------------------------------------------
 # 
 # 22. "Crack" An MT19937 Seed
