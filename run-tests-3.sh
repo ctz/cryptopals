@@ -284,6 +284,9 @@ ensure "`bin/mcp21 10 5`" "3312796937 1283169405 89128932 2124247567 2721498432"
 # 
 # From the 32 bit RNG output, discover the seed.
 # 
+ensure "`bin/mcp22`" "ok"
+# nb. i assume brute-force search was the desired strategy here!
+
 # // ------------------------------------------------------------
 # 
 # 23. Clone An MT19937 RNG From Its Output
