@@ -322,6 +322,9 @@ ensure "`bin/mcp22`" "ok"
 # How would you modify MT19937 to make this attack hard? What would
 # happen if you subjected each tempered output to a cryptographic hash?
 # 
+values=`bin/mcp21 12345 629`
+ensure "`bin/mcp23 $values`" "ok"
+
 # // ------------------------------------------------------------
 # 
 # 24. Create the MT19937 Stream Cipher And Break It
