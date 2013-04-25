@@ -325,6 +325,9 @@ ensure "`bin/mcp22`" "ok"
 values=`bin/mcp21 12345 629`
 ensure "`bin/mcp23 $values`" "ok"
 
+# generate 624 + 5 values, then mcp23 takes the first 624 and predicts the next
+# 5.
+
 # // ------------------------------------------------------------
 # 
 # 24. Create the MT19937 Stream Cipher And Break It
