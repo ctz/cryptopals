@@ -351,5 +351,4 @@ ensure "`bin/mcp23 $values`" "ok"
 # 
 # Write a function to check if any given password token is actually
 # the product of an MT19937 PRNG seeded with the current time.
-# 
-# // ------------------------------------------------------------
+ensure "`bin/mcp24`" "ok"
