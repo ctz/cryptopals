@@ -176,7 +176,13 @@ ensure `bin/mcp29-verify $key $msg$pad$suf $sig2` "ok"
 # done this attack once against SHA-1, the MD4 variant should take much
 # less time; mostly just the time you'll spend Googling for an
 # implementation of MD4.
-# 
+pad="800000000000000000000000000000000000000000000000000000e802000000000000"
+sig=`bin/mcp30-sign $key $msg`
+ensure `bin/mcp30-verify $key $msg $sig` "ok"
+ensure `bin/mcp30-verify $key $msg$suf $sig` "bad"
+sig2=`bin/mcp30-extend 93 $sig $suf`
+ensure `bin/mcp30-verify $key $msg$pad$suf $sig2` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 31. Implement HMAC-SHA1 and break it with an artificial timing leak.
