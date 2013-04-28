@@ -87,7 +87,8 @@ ensure "`bin/mcp26`" "ok"
 # key:
 # 
 #   P'_1 XOR P'_3
-# 
+ensure "`bin/mcp27`" "ok"
+
 # // ------------------------------------------------------------
 # 
 # 28. Implement a SHA-1 keyed MAC
@@ -105,7 +106,8 @@ ensure "`bin/mcp26`" "ok"
 # Verify that you cannot tamper with the message without breaking the
 # MAC you've produced, and that you can't produce a new MAC without
 # knowing the secret key.
-# 
+ensure "`bin/mcp28 68656c6c6f 776f726c64`" "6adfb183a4a2c94a2f92dab5ade762a47889a5a1"
+
 # // ------------------------------------------------------------
 # 
 # 29. Break a SHA-1 keyed MAC using length extension
