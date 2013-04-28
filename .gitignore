@@ -1,3 +1,5 @@
 *.stackdump
 *.o
 *.tar.gz
+*.pyc
+web/*.pyc
