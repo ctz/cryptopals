@@ -110,6 +110,16 @@ int byteblock_hamming(const byteblock *x, const byteblock *y)
   return r;
 }
 
+int byteblock_eq(const byteblock *x, const byteblock *y)
+{
+  if (x->len != y->len)
+    return 0;
+  for (size_t i = 0; i < x->len; i++)
+    if (x->buf[i] != y->buf[i])
+      return 0;
+  return 1;
+}
+
 byteblock byteblock_concat(pool *p, const byteblock *x, const byteblock *y)
 {
   size_t len = x->len + y->len;

@@ -158,7 +158,16 @@ ensure "`bin/mcp28 68656c6c6f 776f726c64`" "6adfb183a4a2c94a2f92dab5ade762a47889
 # "comment1=cooking%20MCs;userdata=foo;comment2=%20like%20a%20pound%20of%20bacon"
 # 
 # Forge a variant of this message that ends with ";admin=true".
-# 
+key="c366fde6edeee441bf6e5fbd946c9d70"
+msg="636f6d6d656e74313d636f6f6b696e672532304d43733b75736572646174613d666f6f3b636f6d6d656e74323d2532306c696b6525323061253230706f756e642532306f662532306261636f6e"
+suf="3b61646d696e3d74727565"
+pad="80000000000000000000000000000000000000000000000000000000000000000002e8"
+sig=`bin/mcp28 $key $msg`
+ensure `bin/mcp29-verify $key $msg $sig` "ok"
+ensure `bin/mcp29-verify $key $msg$suf $sig` "bad"
+sig2=`bin/mcp29-extend 93 $sig $suf`
+ensure `bin/mcp29-verify $key $msg$pad$suf $sig2` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 30. Break an MD4 keyed MAC using length extension.
