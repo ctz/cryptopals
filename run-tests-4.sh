@@ -214,7 +214,8 @@ ensure `bin/mcp30-verify $key $msg$pad$suf $sig2` "ok"
 # 
 # Using the timing leak in this application, write a program that
 # discovers the valid MAC for any file.
-# 
+echo "run mcp31-server.py and mcp31-attack.py manually (slow)"
+
 # // ------------------------------------------------------------
 # 
 # 32. Break HMAC-SHA1 with a slightly less artificial timing leak
@@ -223,5 +224,5 @@ ensure `bin/mcp30-verify $key $msg$pad$suf $sig2` "ok"
 # solution breaks. (Try 5ms to start.)
 # 
 # Now break it again.
-# 
-# // ------------------------------------------------------------
+#
+echo "run mcp32-server.py and mcp32-attack.py manually (slow)"

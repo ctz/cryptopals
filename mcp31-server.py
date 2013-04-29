@@ -3,11 +3,12 @@ from hashlib import sha1
 import time
 
 HMAC_KEY = 'b9e2eae7ba44e2a40ddbf82402759e009d7e186f041d1a57bb4231d41039a1be'.decode('hex')
-WAIT_TIME = 50 * 1e-3
+WAIT_TIME = 10 * 1e-3
 
 urls = (
   '/test/(.+)/(.+)', 'test'
 )
+web.config.debug = False
 
 def sha1hmac(key, msg):
     blocksz = 64
@@ -24,10 +25,12 @@ def insecure_compare(x, y):
     if len(x) != len(y):
         return False
     
+    i = 0
     for xx, yy in zip(x, y):
         if xx != yy:
             return False
         time.sleep(WAIT_TIME)
+        i += 1
     return True
     
 class test:
@@ -37,7 +40,7 @@ class test:
         if insecure_compare(sig, real_sig):
             return 'ok'
         else:
-            raise web.internalerror('bad signature')
+            raise web.internalerror('bad signature, want ' + real_sig.encode('hex'))
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
