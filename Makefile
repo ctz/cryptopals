@@ -48,10 +48,11 @@ bin/%:
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 	
 clean:
-	$(RM) $(TARGETS) *.o
+	$(RM) $(TARGETS) *.o *.pyc web/*.pyc web/*/*.pyc
 
 test:
 	./run-tests-1.sh
 	./run-tests-2.sh
 	./run-tests-3.sh
 	./run-tests-4.sh
+	./run-tests-5.sh
