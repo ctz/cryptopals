@@ -214,7 +214,8 @@ ensure `python mcp37.py` "ok"
 # arbitrary values for b, B, u, and salt.
 # 
 # Crack the password from A's HMAC-SHA256(K, salt).
-# 
+ensure `python mcp38.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 39. Implement RSA
