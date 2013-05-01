@@ -172,7 +172,8 @@ ensure `python mcp35.py` "ok"
 # This is basically Diffie Hellman with a tweak of mixing the password
 # into the public keys. The server also takes an extra step to avoid storing
 # an easily crackable password-equivalent.
-# 
+ensure `python mcp36.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 37. Break SRP with a zero key
@@ -184,7 +185,10 @@ ensure `python mcp35.py` "ok"
 # "A" value. What does this to the "S" value that both sides compute?
 # 
 # Now log in without your password by having the client send N, N*2, &c.
-# 
+ensure `python mcp37.py` "ok"
+# nb. forces server S to be zero, so client can merely send signed salt
+#     with that key
+
 # // ------------------------------------------------------------
 # 
 # 38. Offline dictionary attack on simplified SRP
