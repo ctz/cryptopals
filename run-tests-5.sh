@@ -125,7 +125,13 @@ ensure `python mcp34.py` "ok"
 #         g = p - 1
 # 
 # Write attacks for each.
-# 
+
+# answer:
+# g = 1 and g = p mean public keys = private keys; whoops!
+# g = p - 1 means g generates a group of size 1; all public keys and
+#     shared values are 1.
+ensure `python mcp35.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 36. Implement Secure Remote Password
