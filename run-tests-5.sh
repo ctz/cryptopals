@@ -262,7 +262,8 @@ ensure `python mcp38.py` "ok"
 # Finally, to encrypt a string, do something cheesy, like convert the
 # string to hex and put "0x" on the front of it to turn it into a
 # number. The math cares not how stupidly you feed it strings.
-# 
+ensure `python mcp39.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 40. Implement an E=3 RSA Broadcast attack
@@ -305,5 +306,4 @@ ensure `python mcp38.py` "ok"
 # To decrypt RSA using a simple cube root, leave off the
 # final modulus operation; just take the raw accumulated result and
 # cube-root it.
-# 
-# // ------------------------------------------------------------
+ensure `python mcp40.py` "ok"
