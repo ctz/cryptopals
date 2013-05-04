@@ -1,5 +1,4 @@
 import rsa
-import decimal
 
 if __name__ == '__main__':
     pubkeys = []

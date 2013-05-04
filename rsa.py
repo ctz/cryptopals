@@ -90,8 +90,6 @@ def gen_prime(x):
             return candidate
 
 def gen_rsa(x, e = 65537):
-    assert x & 1 == 0
-    
     done = False
     while not done:
         n = 1
@@ -101,7 +99,8 @@ def gen_rsa(x, e = 65537):
             n = p * q
         
         phi = (p - 1) * (q - 1)
-        k, d, _ = extended_euclidian(e, phi)
+        d = invmod(e, phi)
+        d = d % n
         done = (e * d) % phi == 1
         
     return (e, n), (d, n)
