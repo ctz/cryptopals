@@ -1,19 +1,6 @@
 import rsa
 import decimal
 
-def invmod(x, y):
-    _, i, _ = rsa.extended_euclidian(x, y)
-    return i
-    
-def cuberoot(y):
-    # this is pretty much bollocks. nevermind.
-    dy = decimal.Decimal(y)
-    with decimal.localcontext() as ctx:
-        ctx.prec = rsa.bit_len(y) * 3
-        p = ctx.divide(decimal.Decimal(1), decimal.Decimal(3))
-        i = ctx.power(dy, p)
-    return long(i)
-    
 if __name__ == '__main__':
     pubkeys = []
     for _ in range(3):
@@ -36,6 +23,6 @@ if __name__ == '__main__':
     ]
     n_012 = moduli[0] * moduli[1] * moduli[2]
     
-    magic = sum(ciphertexts[i] * m_s[i] * invmod(m_s[i], moduli[i]) for i in range(3))
-    assert m - 1 == cuberoot(magic)
+    magic = sum(ciphertexts[i] * m_s[i] * rsa.invmod(m_s[i], moduli[i]) for i in range(3))
+    assert m == rsa.cuberoot(magic)
     print 'ok'

@@ -64,7 +64,22 @@ def extended_euclidian(a, b):
     d, k, l = extended_euclidian(b, k)
 
     return (d, l, k - l * n)
+
+def invmod(x, y):
+    _, i, _ = extended_euclidian(x, y)
+    return i
     
+def cuberoot(y):
+    root = 3
+    guess = 1
+    
+    while True:
+        if guess ** root == y:
+            return guess
+        
+        xk = guess ** (root - 1)
+        guess = ((root - 1) * guess + (y / xk)) / root
+  
 def gen_prime(x):
     while 1:
         candidate = random.getrandbits(x)
