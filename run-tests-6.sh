@@ -275,7 +275,8 @@ ensure "`python mcp44.py`" "i1: 0, i2: 8, k: 0x51ffac4835ccfda57356a86ebd57fbf9,
 #           z
 # 
 # Sign "Hello, world". And "Goodbye, world".
-# 
+ensure `python mcp45.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 46. Decrypt RSA From One-Bit Oracle

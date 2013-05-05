@@ -37,8 +37,8 @@ def verify_sha1(pub, sig, msg):
     r, s = sig
     h = hash(msg)
     
-    assert r > 0 and r < group.q
-    assert s > 0 and s < group.q
+    if not (r > 0 and r < group.q and s > 0 and s < group.q):
+        raise ValueError, 'invalid dsa signature'
     
     w = rsa.invmod(s, group.q)
     u1 = (h * w) % group.q
