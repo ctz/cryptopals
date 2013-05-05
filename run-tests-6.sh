@@ -333,7 +333,8 @@ ensure `python mcp45.py` "ok"
 # you'll see the message decrypt "hollywood style".
 # 
 # Decrypt the string (after encrypting it to a hidden private key, duh) above.
-# 
+ensure "`python mcp46.py`" "That's why I found you don't play around with the Funky Cold Medin"
+
 # // ------------------------------------------------------------
 # 
 # 47. Bleichenbacher's PKCS 1.5 Padding Oracle (Simple Case)
