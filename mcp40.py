@@ -22,6 +22,10 @@ if __name__ == '__main__':
     ]
     n_012 = moduli[0] * moduli[1] * moduli[2]
     
-    magic = sum(ciphertexts[i] * m_s[i] * rsa.invmod(m_s[i], moduli[i]) for i in range(3))
+    magic = 0
+    for i in range(3):
+        inv = rsa.invmod(m_s[i], moduli[i])
+        magic += ciphertexts[i] * m_s[i] * inv
+        magic %= n_012
     assert m == rsa.cuberoot(magic)
     print 'ok'

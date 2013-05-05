@@ -56,3 +56,4 @@ test:
 	./run-tests-3.sh
 	./run-tests-4.sh
 	./run-tests-5.sh
+	./run-tests-6.sh

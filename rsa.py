@@ -1,6 +1,8 @@
 import random
 import math
 
+PUBLIC_EXP = 0x10001
+
 small_primes = (
     3, 5, 7, 11, 13, 17, 19, 23, 29,
     31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
@@ -56,29 +58,48 @@ def probably_prime(x):
 
 def extended_euclidian(a, b):
     if b == 0:
-        return (a, 1, 0)
+        return (1, 0)
     assert a > 0 and b > 0
 
-    k = abs(a % b)
-    n = a // b
-    d, k, l = extended_euclidian(b, k)
+    q, r = divmod(a, b)
+    s, t = extended_euclidian(b, r)
 
-    return (d, l, k - l * n)
+    return t, s - q * t
 
 def invmod(x, y):
-    _, i, _ = extended_euclidian(x, y)
-    return i
+    ax, by = extended_euclidian(x, y)
+    while ax < 0:
+        ax += y
+    return ax
+
+ACCURATE = 1
+CLOSEST = 2
     
-def cuberoot(y):
+def cuberoot_bestguess(y):
     root = 3
     guess = 1
+    last = None
     
     while True:
         if guess ** root == y:
-            return guess
+            return ACCURATE, guess
         
         xk = guess ** (root - 1)
         guess = ((root - 1) * guess + (y / xk)) / root
+        
+        if guess == last:
+            return CLOSEST, guess
+        last = guess
+    
+def cuberoot_approx(y):
+    st, res = cuberoot_bestguess(y)
+    return res
+    
+def cuberoot(y):
+    st, res = cuberoot_bestguess(y)
+    if st != ACCURATE:
+        raise ValueError, 'failed to find cuberoot of ' + str(y)
+    return res
   
 def gen_prime(x):
     while 1:
@@ -89,21 +110,26 @@ def gen_prime(x):
         if perhaps_prime(candidate) and probably_prime(candidate):
             return candidate
 
-def gen_rsa(x, e = 65537):
-    done = False
-    while not done:
-        n = 1
-        while bit_len(n) != x:
-            p = gen_prime(x // 2)
-            q = gen_prime(x - bit_len(p))
-            n = p * q
+def gen_prime_given_e(x, e):
+    while True:
+        p = gen_prime(x)
+        if p % e != 1:
+            return p
+            
+def gen_rsa(bitlen, e):
+    assert bitlen % 2 == 0
+    pqlen = bitlen // 2
+    
+    while True:
+        p = gen_prime_given_e(pqlen, e)
+        q = gen_prime_given_e(pqlen, e)
+        n = p * q
         
         phi = (p - 1) * (q - 1)
-        d = invmod(e, phi)
-        d = d % n
-        done = (e * d) % phi == 1
         
-    return (e, n), (d, n)
+        d = invmod(e, phi)
+        if bit_len(n) == bitlen and (d * e) % phi == 1:
+            return (e, n), (d, n)
 
 def raw_encrypt(pub, m):
     e, n = pub

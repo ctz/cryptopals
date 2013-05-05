@@ -13,7 +13,7 @@ def decrypt_once(priv, ct):
     return rsa.raw_decrypt(priv, ct)
 
 if __name__ == '__main__':
-    pub, priv = rsa.gen_rsa(1024)
+    pub, priv = rsa.gen_rsa(1024, rsa.PUBLIC_EXP)
     m = 0x12351234
     
     ct = rsa.raw_encrypt(pub, m)
