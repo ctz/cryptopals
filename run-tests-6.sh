@@ -126,7 +126,8 @@ ensure `python mcp41.py` "ok"
 # 
 # Forge a 1024-bit RSA signature for the string "hi mom". Make sure your
 # implementation actually accepts the signature!
-# 
+ensure `python mcp42.py` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 43. DSA Key Recovery From Nonce
@@ -205,7 +206,8 @@ ensure `python mcp41.py` "ok"
 #   0954edd5e0afe5542a4adf012611a91912a3ec16
 # 
 # Obviously, it also generates the same signature for that string.
-# 
+ensure "`python mcp43.py`" "k: 0x40bf, x: 0x15fb2873d16b3e129ff76d0918fd7ada54659e49"
+
 # // ------------------------------------------------------------
 # 
 # 44. DSA Nonce Recovery From Repeated Nonce
@@ -243,7 +245,8 @@ ensure `python mcp41.py` "ok"
 # What's my private key? Its SHA-1 (from hex) is:
 # 
 #      ca8f6f7c66fa362d40760d135b763eb8527d3d52
-# 
+ensure "`python mcp44.py`" "i1: 0, i2: 8, k: 0x51ffac4835ccfda57356a86ebd57fbf9, x: 0xf1b733db159c66bce071d21e044a48b0e4c1665a"
+
 # // ------------------------------------------------------------
 # 
 # 45. DSA Parameter Tampering
