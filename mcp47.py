@@ -52,16 +52,19 @@ if __name__ == '__main__':
             u, v = A[Ai]
             x, y = B[Bi]
 
+            # B contains larger range; need to swap
             if x < u:
                 A, B = B, A
                 Ai, Bi = Bi, Ai
                 u, v, x, y = x, y, u, v
 
+            # B entirely contained within A
             if u <= x <= y <= v:
                 out.append((x, y))
                 Bi += 1
                 continue
 
+            # disjoint
             if v <= x:
                 Ai += 1
                 continue
@@ -72,19 +75,18 @@ if __name__ == '__main__':
         check_range(out)
         return out
 
-    def search_start():
-        s1 = ceil_div(n, 3 * B)
-        while True:
-            if attempt(s1):
-                return s1
-            s1 += 1
-
-    def search_multi(si_1):
-        si = si_1 + 1
+    def search_linear(start):
+        si = start
         while True:
             if attempt(si):
                 return si
             si += 1
+
+    def search_start():
+        return search_linear(ceil_div(n, 3 * B))
+
+    def search_multi(si_1):
+        return search_linear(si_1 + 1))
 
     def search_single(M, si_1):
         assert len(M) == 1
@@ -132,7 +134,9 @@ if __name__ == '__main__':
 
     while True:
         s_i = search(i, M_i, s_i)
+        print 's_' + str(i), s_i
         M_i = narrow(M_i, s_i)
+        print 'M_' + str(i), M_i
 
         if len(M_i) == 1:
             dd = M_i[0][1] - M_i[0][0]

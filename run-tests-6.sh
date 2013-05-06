@@ -458,3 +458,5 @@ ensure `python mcp47.py 256` "ok"
 # out to 's' values by solving m1=m0s1-rn for 's' instead of 'r' or
 # 'm0'. So much algebra! Make your teenage son do it for you! *Note:
 # does not work well in practice*
+ensure `python mcp47.py 768` "ok"
+# nb. 47 ended up containing the full attack anyway
