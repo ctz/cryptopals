@@ -86,7 +86,7 @@ if __name__ == '__main__':
         return search_linear(ceil_div(n, 3 * B))
 
     def search_multi(si_1):
-        return search_linear(si_1 + 1))
+        return search_linear(si_1 + 1)
 
     def search_single(M, si_1):
         assert len(M) == 1
@@ -144,6 +144,6 @@ if __name__ == '__main__':
                 break
         i += 1
 
-    recovered = M_i[0][1]
-    assert recovered == msg
+    recovered_a, recovered_b = M_i[0]
+    assert recovered_a == msg or recovered_b == msg
     print 'ok'
