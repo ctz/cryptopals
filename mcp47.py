@@ -134,9 +134,9 @@ if __name__ == '__main__':
 
     while True:
         s_i = search(i, M_i, s_i)
-        print 's_' + str(i), s_i
+        #print 's_' + str(i), s_i
         M_i = narrow(M_i, s_i)
-        print 'M_' + str(i), M_i
+        #print 'M_' + str(i), M_i
 
         if len(M_i) == 1:
             dd = M_i[0][1] - M_i[0][0]
