@@ -411,7 +411,8 @@ ensure "`python mcp46.py`" "That's why I found you don't play around with the Fu
 # We recommend you just use the raw math from paper (check, check,
 # double check your translation to code) and not spend too much time
 # trying to grok how the math works.
-# 
+ensure `python mcp47.py 256` "ok"
+
 # // ------------------------------------------------------------
 # 
 # 48. Bleichenbacher's PKCS 1.5 Padding Oracle (Complete)
