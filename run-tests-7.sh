@@ -232,7 +232,7 @@ ensure "`python mcp51-rc4.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
 # Got it? Great.
 # 
 # Now swap out your stream cipher for CBC and do it again.
-
+ensure "`python mcp51-aes.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
 
 # // ------------------------------------------------------------
 # 
