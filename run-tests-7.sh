@@ -225,13 +225,15 @@ ensure "`grep -o 'Ayo, the Wu is back' test50.html`" "Ayo, the Wu is back"
 # But don't worry! I have full confidence in you.
 # 
 # Use the compression oracle to recover the session id.
-# 
+ensure "`python mcp51-rc4.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
+
 # I'll wait.
 # 
 # Got it? Great.
 # 
 # Now swap out your stream cipher for CBC and do it again.
-# 
+
+
 # // ------------------------------------------------------------
 # 
 # 52. Iterated Hash Function Multicollisions
