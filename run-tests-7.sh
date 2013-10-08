@@ -23,8 +23,6 @@ ensure()
 
 ensure_re()
 {
-  echo "$1"
-  echo "$2"
   if [ "`echo "$1" | grep -P "$2"`" == "" ] ; then
     echo "test failed:"
     echo "  '$1'"
