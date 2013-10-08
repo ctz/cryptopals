@@ -2,6 +2,12 @@
 
 i=0
 
+pass()
+{
+  i=$(($i + 1))
+  echo "test $i: OK"
+}
+
 ensure()
 {
   if [ "$1" != "$2" ] ; then
@@ -12,8 +18,22 @@ ensure()
     exit 1
   fi
   
-  i=$(($i + 1))
-  echo "test $i: OK"
+  pass
+}
+
+ensure_re()
+{
+  echo "$1"
+  echo "$2"
+  if [ "`echo "$1" | grep -P "$2"`" == "" ] ; then
+    echo "test failed:"
+    echo "  '$1'"
+    echo "did not match:"
+    echo "  '$2'"
+    exit 1
+  fi
+  
+  pass
 }
 
 # // ------------------------------------------------------------
@@ -289,7 +309,7 @@ ensure "`python mcp51-aes.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
 # 
 # Now write the function f(n) that will generate 2^n collisions in this
 # hash function.
-
+ensure "`python mcp52-single.py`" "found 32 pairs of internal collisions giving 4294967296 colliding messages"
 
 # Why does this matter? Well, one reason is that people have tried to
 # strengthen hash functions by cascading them together. Here's what I
@@ -317,7 +337,8 @@ ensure "`python mcp51-aes.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
 # hash function to pair with the one you just used. Find a pair of
 # messages that collide under both functions. Measure the total number
 # of calls to the collision function.
-# 
+ensure_re "`python mcp52-dual.py`" "found collision after \d+ g tests"
+
 # // ------------------------------------------------------------
 # 
 # 53. Kelsey and Schneier's Expandable Messages
