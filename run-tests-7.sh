@@ -289,7 +289,8 @@ ensure "`python mcp51-aes.py`" "TmV2ZXIgcmV2ZWFsIHRoZSBXdS1UYW5nIFNlY3JldCE="
 # 
 # Now write the function f(n) that will generate 2^n collisions in this
 # hash function.
-# 
+
+
 # Why does this matter? Well, one reason is that people have tried to
 # strengthen hash functions by cascading them together. Here's what I
 # mean:
