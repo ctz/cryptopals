@@ -399,7 +399,8 @@ ensure_re "`python mcp52-dual.py`" "found collision after \d+ g tests"
 # 
 # The padding in the final block should now be correct, and your forgery
 # should hash to the same value as M.
-# 
+ensure_re "`python mcp53.py`" "colliding block at \d+ ... (short |long )+win\!"
+
 # // ------------------------------------------------------------
 # 
 # 54. Kelsey and Kohno's Nostradamus Attack

@@ -1,5 +1,5 @@
 import hashlib
-import os
+import random
 
 lolhash_length = 2 # bytes
 lolhash_blocksz = 16
@@ -22,18 +22,18 @@ def lolhash(m):
         H = C(block, H)
     return H
 
+def random_block():
+    return ''.join(chr(random.getrandbits(8)) for i in range(lolhash_blocksz))
+
 lolhash_collide_calls = 0
 
 def lolhash_collide(H):
-    global lolhash_collide_calls
-    lolhash_collide_calls += 1
-    
     # return a pair of colliding blocks given start state H
-    x = os.urandom(lolhash_blocksz)
+    x = random_block()
 
     xH = C(x, H)
     while True:
-        y = os.urandom(lolhash_blocksz)
+        y = random_block()
         yH = C(y, H)
         if xH == yH and x != y:
             return x, y, xH, yH
@@ -58,10 +58,8 @@ def f(n):
     x, y, xh, yh = lolhash_collide(lolhash_initial)
 
     found = [(x, y)]
-    to_process = [x, y]
     for i in range(1,n):
         x, y, xh, yh = lolhash_collide(xh)
-        to_process.extend([x, y, xh, yh])
         found.append((x, y))
 
     crosscheck(found)

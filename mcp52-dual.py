@@ -1,5 +1,5 @@
 import hashlib
-import os
+import random
 
 f_length = 2 # bytes
 g_length = 3
@@ -35,17 +35,15 @@ def g(m):
 def h(m):
     return f(m) + g(m)
 
-h_collide_calls = 0
+def random_block():
+    return ''.join(chr(random.getrandbits(8)) for i in range(fg_blocksz))
 
 def internal_collide(H, C):
-    global h_collide_calls
-    h_collide_calls += 1
-    
-    x = os.urandom(fg_blocksz)
+    x = random_block()
 
     xH = C(x, H)
     while True:
-        y = os.urandom(fg_blocksz)
+        y = random_block()
         yH = C(y, H)
         if xH == yH and x != y:
             return x, y, xH, yH
