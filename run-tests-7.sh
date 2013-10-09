@@ -463,7 +463,8 @@ ensure_re "`python mcp53.py`" "colliding block at \d+ ... (short |long )+win\!"
 # of this step. It probably makes sense to do more work up-front, since
 # people will be waiting on you to supply your message once the event
 # passes. Happy prognosticating!
-# 
+ensure_re "`python mcp54.py`" "commitment: ([0-9a-f]+) message .* = \1"
+
 # // ------------------------------------------------------------
 # 
 # 55. MD4 Collisions
