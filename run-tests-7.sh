@@ -519,7 +519,8 @@ ensure_re "`python mcp54.py`" "commitment: ([0-9a-f]+) message .* = \1"
 # 
 # * How did they work out the conditions? I'm going to be honest with
 #   you: I have no f'ing clue.
-# 
+
+
 # // ------------------------------------------------------------
 # 
 # 56. RC4 Single-Byte Biases
@@ -589,3 +590,6 @@ ensure_re "`python mcp54.py`" "commitment: ([0-9a-f]+) message .* = \1"
 # 
 # Build bias maps for a couple chosen indices (z16 and z32 are good) and
 # decrypt the cookie.
+
+# yeah, this is grotesquely slow
+ensure "`bin/mcp56 QkUgU1VSRSBUTyBEUklOSyBZT1VSIE9WQUxUSU5F | tail -1`" "message: BE SURE TO DRINK YOUR OVALTINE"
