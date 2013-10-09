@@ -129,7 +129,7 @@ int main(int argc, char **argv)
   }
   
   byteblock recovered = recover(p, counts);
-  printf("message?: %s\n", to_ascii(p, &recovered));
+  printf("message: %s\n", to_ascii(p, &recovered));
   
   p->finish(p);
   return 0;
