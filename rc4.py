@@ -1,5 +1,6 @@
 class rc4:
     def __init__(self, key):
+        key = map(ord, key)
         self.S = [x for x in range(256)]
         j = 0
         for i in range(256):
@@ -14,24 +15,21 @@ class rc4:
     def encrypt(self, pt):
         ct = []
 
-        for p in pt:
+        for p in map(ord, pt):
             self.i = (self.i + 1) & 0xff
             self.j = (self.j + self.S[self.i]) & 0xff
             self.swap(self.i, self.j)
             k = self.S[(self.S[self.i] + self.S[self.j]) & 0xff]
             ct.append(p ^ k)
 
-        return bytes(ct)
+        return ''.join(chr(x) for x in ct)
 
     def decrypt(self, ct):
         return self.encrypt(ct)
 
 def run_tests():
     def test(key, plaintext, ciphertext):
-        key = bytes(key, 'ASCII')
-        plaintext = bytes(plaintext, 'ASCII')
-        ciphertext = bytes(ciphertext)
-
+        ciphertext = ''.join(chr(x) for x in ciphertext)
         assert ciphertext == rc4(key).encrypt(plaintext)
         assert plaintext == rc4(key).decrypt(ciphertext)
 
