@@ -519,7 +519,7 @@ ensure_re "`python mcp54.py`" "commitment: ([0-9a-f]+) message .* = \1"
 # 
 # * How did they work out the conditions? I'm going to be honest with
 #   you: I have no f'ing clue.
-
+ensure "`bin/mcp55 | head -1`" "collision found"
 
 # // ------------------------------------------------------------
 # 
