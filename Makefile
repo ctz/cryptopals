@@ -3,7 +3,7 @@ default: all
 TARGETS=bin/mcp1 bin/mcp2 bin/mcp3 bin/mcp4 bin/mcp6 bin/mcp7 bin/mcp8 \
 	bin/mcp9 bin/mcp10 bin/mcp11 bin/mcp12 bin/mcp13 bin/mcp14 bin/mcp15 bin/mcp16 \
 	bin/mcp17 bin/mcp18 bin/mcp19 bin/mcp20 bin/mcp21 bin/mcp22 bin/mcp23 bin/mcp24 \
-	bin/mcp25 bin/mcp26 bin/mcp27 bin/mcp28 bin/mcp29-extend bin/mcp29-verify bin/mcp30-sign bin/mcp30-extend bin/mcp30-verify bin/mcp56
+	bin/mcp25 bin/mcp26 bin/mcp27 bin/mcp28 bin/mcp29-extend bin/mcp29-verify bin/mcp30-sign bin/mcp30-extend bin/mcp30-verify bin/mcp56 bin/mcp55
 CFLAGS=-std=c99 -Wall -Werror -Wextra -Wno-unused -pedantic -g -O3
 
 all: $(TARGETS) test
@@ -44,6 +44,7 @@ bin/mcp30-sign: mcp30-sign.o sph/md4.o
 bin/mcp30-extend: mcp30-extend.o sph/md4.o
 bin/mcp30-verify: mcp30-verify.o sph/md4.o
 
+bin/mcp55: mcp55.o sph/md4.o
 bin/mcp56: mcp56.o
 
 bin/%:
