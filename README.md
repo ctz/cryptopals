@@ -5,9 +5,7 @@ These are cryptopals/Matasano crypto challenges answers.
 
 There are **SPOILERS WITHIN**!
 
-The main places to start are:
-
-* [Makefile](Makefile) which will build everything, and then run:
+The main place to start is the [Makefile](Makefile) which will build everything, and then run:
 
 * [run-tests-1.sh](run-tests-1.sh)
 * [run-tests-2.sh](run-tests-2.sh)
